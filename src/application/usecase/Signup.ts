@@ -1,5 +1,5 @@
 import AccountRepository from "../../infra/repository/AccountRepository";
-import Account from "../../domain/Account";
+import Account from "../../domain/entities/Account";
 export default class SignUp {
 	constructor(readonly accountRepository: AccountRepository){}
 	async execute(input: any){

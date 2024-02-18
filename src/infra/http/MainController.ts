@@ -28,7 +28,7 @@ export default class MainController {
     })
 
     httpServer.register("post","/accept_ride/:rideId", async (params: any, body: any) => {
-      const output = await acceptRide.execute(params.rideId, body.driverId)
+      const output = await acceptRide.execute({rideId: params.rideId, driverId: body.driverId})
       return output;
     })
   }

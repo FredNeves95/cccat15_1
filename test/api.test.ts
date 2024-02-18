@@ -170,7 +170,7 @@ it("should not accept a ride if ride status isn't requested", async () => {
 	expect(outputRequestRide.rideId).toBeDefined()
 
 	const inputSignupFirstDriver = {
-		name: 'Another John Doe',
+		name: 'John Doe',
 		email: `${Math.random()}@email.com`,
 		cpf: '97456321558',
 		isDriver: true,
@@ -183,18 +183,16 @@ it("should not accept a ride if ride status isn't requested", async () => {
 	const inputSignupSecondDriver = {
 		name: 'Another John Doe',
 		email: `${Math.random()}@email.com`,
-		cpf: '97456321558',
+		cpf: '87748248800',
 		isDriver: true,
-		carPlate: 'PWX6717'
+		carPlate: 'PWL6717'
 	}
 	const responseSignUpSecondDriver = await axios.post("http://localhost:3000/signup", inputSignupSecondDriver)
 	const outputSignUpSecondDriver = responseSignUpSecondDriver.data
 	expect(outputSignUpSecondDriver.accountId).toBeDefined()
-
 	const rideId = outputRequestRide.rideId
 	const firstDriverId = outputSignUpFirstDriver.accountId
-	const secondDriverId = outputSignUpFirstDriver.accountId
-
+	const secondDriverId = outputSignUpSecondDriver.accountId
 	const inputFirstAcceptRide = {
 		driverId: firstDriverId
 	}
@@ -207,7 +205,7 @@ it("should not accept a ride if ride status isn't requested", async () => {
 	const responseAcceptRide = await axios.post(`http://localhost:3000/accept_ride/${rideId}`, inputSecondAcceptRide)
 	const outputAcceptRide = responseAcceptRide.data;
 	expect(responseAcceptRide.status).toBe(422);
-	expect(outputAcceptRide.message).toBe('Ride is not available')
+	expect(outputAcceptRide.message).toBe('Invalid status')
 })
 
 it("should not accept a ride if driver has a ride accepted or in progress", async () => {
